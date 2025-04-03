@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্মার্ট এসি অ্যানালাইজার</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>স্মার্ট এসি অ্যানালাইজার</h1>
+            <p class="subtitle">আপনার এসির সম্পূর্ণ কর্মক্ষমতা বিশ্লেষণ এবং ব্যবস্থাপনা</p>
+        </header>
+        
+        <div class="app-container">
+            <div class="feature-tabs">
+                <button class="tab-btn active" data-tab="analysis">মূল বিশ্লেষণ</button>
+                <button class="tab-btn" data-tab="energy">এনার্জি ক্যালকুলেটর</button>
+                <button class="tab-btn" data-tab="room">রুম ক্যালকুলেটর</button>
+                <button class="tab-btn" data-tab="price">দাম তুলনা</button>
+                <button class="tab-btn" data-tab="maintenance">মেইনটেনেন্স</button>
+                <button class="tab-btn" data-tab="reviews">রিভিউ</button>
+                <button class="tab-btn" data-tab="report">রিপোর্ট</button>
+            </div>
+            
+            <!-- Existing analysis tab content... -->
+            
+            <!-- New Feature 1: Energy Calculator -->
+            <div id="energy-tab" class="tab-content">
+                <div class="input-section">
+                    <h2 class="section-title"><i class="fas fa-bolt"></i> এনার্জি কনজাম্পশন ক্যালকুলেটর</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="ac-power">এসি পাওয়ার (ওয়াট)</label>
+                            <input type="number" id="ac-power" placeholder="উদা: 1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="daily-usage">দৈনিক ব্যবহার (ঘণ্টা)</label>
+                            <input type="number" id="daily-usage" placeholder="উদা: 8">
+                        </div>
+                        <div class="form-group">
+                            <label for="electricity-rate">বিদ্যুৎ রেট (প্রতি ইউনিট)</label>
+                            <input type="number" id="electricity-rate" placeholder="উদা: 6.5">
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="calculate-energy">
+                        <i class="fas fa-calculator"></i> হিসাব করুন
+                    </button>
+                    
+                    <div id="energy-results" class="hidden" style="margin-top: 20px;">
+                        <h3 class="section-title"><i class="fas fa-chart-line"></i> এনার্জি খরচের ফলাফল</h3>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <h4>দৈনিক খরচ</h4>
+                                <p id="daily-cost">-</p>
+                            </div>
+                            <div class="result-card">
+                                <h4>মাসিক খরচ</h4>
+                                <p id="monthly-cost">-</p>
+                            </div>
+                            <div class="result-card">
+                                <h4>বার্ষিক খরচ</h4>
+                                <p id="yearly-cost">-</p>
+                            </div>
+                        </div>
+                        <div class="price-comparison-chart">
+                            <canvas id="energy-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Feature 2: Room Size Calculator -->
+            <div id="room-tab" class="tab-content">
+                <div class="input-section">
+                    <h2 class="section-title"><i class="fas fa-ruler-combined"></i> রুম সাইজ ক্যালকুলেটর</h2>
+                    <div class="room-dimension-input">
+                        <div class="form-group">
+                            <label for="room-length">দৈর্ঘ্য (ফুট)</label>
+                            <input type="number" id="room-length" placeholder="উদা: 12">
+                        </div>
+                        <div class="form-group">
+                            <label for="room-width">প্রস্থ (ফুট)</label>
+                            <input type="number" id="room-width" placeholder="উদা: 10">
+                        </div>
+                        <div class="form-group">
+                            <label for="room-height">উচ্চতা (ফুট)</label>
+                            <input type="number" id="room-height" placeholder="উদা: 8">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="window-count">জানালার সংখ্যা</label>
+                            <input type="number" id="window-count" placeholder="উদা: 2">
+                        </div>
+                        <div class="form-group">
+                            <label for="insulation-level">ইনসুলেশন লেভেল</label>
+                            <select id="insulation-level">
+                                <option value="1.2">খারাপ</option>
+                                <option value="1.0" selected>সাধারণ</option>
+                                <option value="0.8">ভাল</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" id="calculate-btu">
+                        <i class="fas fa-calculator"></i> BTU হিসাব করুন
+                    </button>
+                    
+                    <div class="dimension-visualization">
+                        <div class="room-3d" id="room-3d">
+                            <!-- 3D visualization will be rendered here -->
+                        </div>
+                    </div>
+                    
+                    <div id="btu-results" class="hidden" style="margin-top: 20px;">
+                        <h3 class="section-title"><i class="fas fa-snowflake"></i> প্রস্তাবিত এসি ক্যাপাসিটি</h3>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <h4>রুমের আয়তন</h4>
+                                <p id="room-volume">-</p>
+                            </div>
+                            <div class="result-card">
+                                <h4>প্রয়োজনীয় BTU</h4>
+                                <p id="required-btu">-</p>
+                            </div>
+                            <div class="result-card">
+                                <h4>প্রস্তাবিত টন</h4>
+                                <p id="recommended-ton">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Feature 3: Price Comparison -->
+            <div id="price-tab" class="tab-content">
+                <div class="input-section">
+                    <h2 class="section-title"><i class="fas fa-tags"></i> দাম তুলনা</h2>
+                    <div class="form-group">
+                        <label for="price-model-select">এসি মডেল নির্বাচন করুন</label>
+                        <select id="price-model-select" multiple>
+                            <option value="daikin">ডাইকিন FTKM</option>
+                            <option value="midea">মিডিয়া পার্ল</option>
+                            <option value="gree">গ্রী ব্রিজ</option>
+                            <option value="lg">এলজি ডুয়াল কুল</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" id="compare-prices">
+                        <i class="fas fa-exchange-alt"></i> তুলনা করুন
+                    </button>
+                    
+                    <div class="price-comparison-chart">
+                        <canvas id="price-chart"></canvas>
+                    </div>
+                    
+                    <div id="savings-calculation" class="hidden" style="margin-top: 20px;">
+                        <h3 class="section-title"><i class="fas fa-coins"></i> দীর্ঘমেয়াদী সঞ্চয়</h3>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <h4>১ বছর সঞ্চয়</h4>
+                                <p id="year1-savings">-</p>
+                            </div>
+                            <div class="result-card">
+                                <h4>৩ বছর সঞ্চয়</h4>
+                                <p id="year3-savings">-</p>
+                            </div>
+                            <div class="result-card">
+                                <h4>৫ বছর সঞ্চয়</h4>
+                                <p id="year5-savings">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Feature 5: Maintenance Tracker -->
+            <div id="maintenance-tab" class="tab-content">
+                <div class="input-section">
+                    <h2 class="section-title"><i class="fas fa-tools"></i> মেইনটেনেন্স ট্র্যাকার</h2>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="maintenance-type">মেইনটেনেন্স টাইপ</label>
+                            <select id="maintenance-type">
+                                <option value="filter">ফিল্টার পরিষ্কার</option>
+                                <option value="gas">গ্যাস রিফিল</option>
+                                <option value="service">সার্ভিসিং</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maintenance-date">তারিখ</label>
+                            <input type="date" id="maintenance-date">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maintenance-notes">নোটস</label>
+                        <textarea id="maintenance-notes" rows="3" style="width: 100%; padding: 10px;"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn-primary" id="add-maintenance">
+                            <i class="fas fa-plus"></i> এন্ট্রি যোগ করুন
+                        </button>
+                        <button class="btn-secondary" id="view-schedule">
+                            <i class="fas fa-calendar-alt"></i> শিডিউল দেখুন
+                        </button>
+                    </div>
+                    
+                    <div class="maintenance-log" id="maintenance-log">
+                        <h3 class="section-title" style="margin-top: 20px;"><i class="fas fa-history"></i> মেইনটেনেন্স লগ</h3>
+                        <!-- Log entries will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Feature 8: User Reviews -->
+            <div id="reviews-tab" class="tab-content">
+                <div class="input-section">
+                    <h2 class="section-title"><i class="fas fa-star"></i> ব্যবহারকারী রিভিউ</h2>
+                    
+                    <div class="form-group">
+                        <label for="review-model">মডেল নির্বাচন করুন</label>
+                        <select id="review-model">
+                            <option value="">-- নির্বাচন করুন --</option>
+                            <option value="daikin">ডাইকিন FTKM</option>
+                            <option value="midea">মিডিয়া পার্ল</option>
+                            <option value="gree">গ্রী ব্রিজ</option>
+                        </select>
+                    </div>
+                    
+                    <div id="model-reviews" class="hidden">
+                        <div class="review-stats">
+                            <h3 id="review-model-name">মডেল নাম</h3>
+                            <div class="overall-rating">
+                                <span class="rating-stars">★★★★★</span>
+                                <span id="average-rating">4.5</span> ( <span id="review-count">12</span> রিভিউ)
+                            </div>
+                        </div>
+                        
+                        <div class="review-list" id="review-list">
+                            <!-- Reviews will be added here dynamically -->
+                        </div>
+                        
+                        <h3 class="section-title" style="margin-top: 20px;"><i class="fas fa-edit"></i> আপনার রিভিউ লিখুন</h3>
+                        <div class="form-group">
+                            <label for="user-rating">রেটিং</label>
+                            <div class="star-rating">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="user-review">রিভিউ</label>
+                            <textarea id="user-review" rows="4" style="width: 100%; padding: 10px;"></textarea>
+                        </div>
+                        
+                        <button class="btn-primary" id="submit-review">
+                            <i class="fas fa-paper-plane"></i> রিভিউ সাবমিট করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Feature 11: Report Generation -->
+            <div id="report-tab" class="tab-content">
+                <div class="input-section">
+                    <h2 class="section-title"><i class="fas fa-file-pdf"></i> রিপোর্ট জেনারেশন</h2>
+                    
+                    <div class="report-options">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="include-analysis" checked> কর্মক্ষমতা বিশ্লেষণ
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="include-energy" checked> এনার্জি কনজাম্পশন
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="include-comparison" checked> মডেল তুলনা
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="include-maintenance"> মেইনটেনেন্স ইতিহাস
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="report-period">রিপোর্ট পিরিয়ড</label>
+                        <select id="report-period">
+                            <option value="current">বর্তমান বিশ্লেষণ</option>
+                            <option value="monthly">মাসিক সারাংশ</option>
+                            <option value="yearly">বার্ষিক সারাংশ</option>
+                        </select>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn-primary" id="generate-pdf">
+                            <i class="fas fa-file-pdf"></i> PDF জেনারেট করুন
+                        </button>
+                        <button class="btn-secondary" id="generate-excel">
+                            <i class="fas fa-file-excel"></i> এক্সেল জেনারেট করুন
+                        </button>
+                    </div>
+                    
+                    <div id="report-preview" class="hidden" style="margin-top: 20px;">
+                        <h3 class="section-title"><i class="fas fa-eye"></i> রিপোর্ট প্রিভিউ</h3>
+                        <div class="report-preview-content" id="report-preview-content">
+                            <!-- Report preview will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+
+:root {
+    --bg-dark: #0a0a0a;
+    --card-dark: #1a1a1a;
+    --primary: #4a9bff;
+    --primary-dark: #2a6fc9;
+    --secondary: #ff7043;
+    --text-light: #f0f0f0;
+    --text-muted: #aaaaaa;
+    --danger: #ff5252;
+    --warning: #ffc107;
+    --success: #4caf50;
+    --border-radius: 12px;
+    --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Hind Siliguri', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+h1 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Existing styles... (previous CSS remains the same) */
+
+/* New Features Styles */
+.feature-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background-color: #333;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.room-dimension-input {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.dimension-visualization {
+    height: 200px;
+    background-color: #2a2a2a;
+    border-radius: var(--border-radius);
+    margin: 20px 0;
+    position: relative;
+}
+
+.room-3d {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+.price-comparison-chart {
+    height: 300px;
+    margin-top: 20px;
+}
+
+.review-card {
+    background-color: #2a2a2a;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.review-rating {
+    color: var(--warning);
+}
+
+.maintenance-log {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+}
+
+.report-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .room-dimension-input {
+        grid-template-columns: 1fr;
+    }
+    
+    .feature-tabs {
+        flex-direction: column;
+    }
+}
